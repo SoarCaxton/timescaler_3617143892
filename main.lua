@@ -1,5 +1,5 @@
 local TimeMagic = RegisterMod("Time Magic", 1)
-TimeMagic.Version = "1.0.2"
+TimeMagic.Version = "1.0.3"
 
 TimeMagic.RenderTimeScale = 1.0
 TimeMagic.GameTimeScale = 1.0
@@ -53,9 +53,9 @@ function TimeMagic:SpeedUp()
     if Game():IsPaused() then return end
     if self.TargetTimeScale > 1.0 then
         if self.TargetTimeScale > self.GameTimeScale then
-            self.SpeedUpUpdateTimes = self.SpeedUpUpdateTimes + 1
+            self.SpeedUpUpdateTimes = self.SpeedUpUpdateTimes * 1.2
         elseif self.TargetTimeScale < self.GameTimeScale then
-            self.SpeedUpUpdateTimes = math.max(1.0, self.SpeedUpUpdateTimes-1)
+            self.SpeedUpUpdateTimes = math.max(1.0, self.SpeedUpUpdateTimes/2)
         end
         self.SpeedUpLock = true
         for i = 1, math.floor(self.SpeedUpUpdateTimes) do
