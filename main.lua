@@ -1,5 +1,5 @@
 local TimeMagic = RegisterMod("Time Magic", 1)
-TimeMagic.Version = "1.0.0"
+TimeMagic.Version = "1.0.1"
 
 TimeMagic.RenderTimeScale = 1.0
 TimeMagic.GameTimeScale = 1.0
@@ -35,6 +35,7 @@ end)
 TimeMagic.TargetTimeScale = 1.0
 function TimeMagic:SetTimeScale(scale)
     scale = scale and tonumber(scale) or 1.0
+    scale = math.max(0, scale)
     self.TargetTimeScale = scale
 end
 
