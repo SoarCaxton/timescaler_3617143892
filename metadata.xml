@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <name>TimeScaler变速精灵</name>
+    <directory>timescaler</directory>
+    <id>3617143892</id>
+    <description>
+[h1]TimeScaler - 变速精灵[/h1]
+
+[h2]模组接口[/h2]
+[u]调用方式：TimeScaler[b]:[/b]函数名(参数)[/u]
+[olist]
+[*][h3]void SetTimeScale(scale = 1.0)[/h3]
+设置游戏帧率缩放系数，默认参数scale的值为1.0。
+
+[*][h3]number GetRenderTimeScale()[/h3]
+获取当前游戏渲染帧率的缩放系数。
+
+[*][h3]number GetGameTimeScale()[/h3]
+获取当前游戏逻辑帧率的缩放系数。
+
+[/olist]
+[h2]注：[/h2]
+[list]
+[*]模组实时计算并返回缩放系数，与实际值可能存在一定误差。
+[*]模组基于实时计算的缩放系数进行游戏变速操作，实际效果可能与预期效果存在偏差。
+[/list]
+	</description>
+    <version>1.0.0</version>
+    <visibility>Public</visibility>
+    <tag id="Lua"/>
+</metadata>
