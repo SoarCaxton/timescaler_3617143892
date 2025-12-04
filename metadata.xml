@@ -26,7 +26,7 @@
 [*]模组基于实时计算的缩放系数进行游戏变速操作，实际效果可能与预期效果存在偏差。
 [/list]
 	</description>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
 </metadata>

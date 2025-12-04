@@ -1,5 +1,5 @@
 local TimeMagic = RegisterMod("Time Magic", 1)
-TimeMagic.Version = "1.0.4"
+TimeMagic.Version = "1.0.5"
 
 TimeMagic.RenderTimeScale = 1.0
 TimeMagic.GameTimeScale = 1.0
@@ -60,7 +60,7 @@ function TimeMagic:SpeedUp()
         if self.TargetTimeScale > self.GameTimeScale then
             self.SpeedUpUpdateTimes = self.SpeedUpUpdateTimes * 1.2
         elseif self.TargetTimeScale < self.GameTimeScale then
-            self.SpeedUpUpdateTimes = math.max(1.0, self.SpeedUpUpdateTimes/2)
+            self.SpeedUpUpdateTimes = math.max(.5, self.SpeedUpUpdateTimes/2)
         end
         self.SpeedUpLock = true
         for i = 1, math.floor(self.SpeedUpUpdateTimes) do
@@ -79,7 +79,7 @@ function TimeMagic:SpeedDown()
         if self.TargetTimeScale < self.RenderTimeScale then
             self.SpeedDownUpdateTimes = self.SpeedDownUpdateTimes * 1.2
         elseif self.TargetTimeScale > self.RenderTimeScale then
-            self.SpeedDownUpdateTimes = math.max(1.0, self.SpeedDownUpdateTimes/2)
+            self.SpeedDownUpdateTimes = math.max(.5, self.SpeedDownUpdateTimes/2)
         end
         self.SpeedDownLock = true
         for i = 1, math.floor(self.SpeedDownUpdateTimes) do
