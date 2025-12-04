@@ -11,7 +11,7 @@
 [olist]
 [*][h3]void SetTimeScale(scale = 1.0)[/h3]
 设置游戏帧率缩放系数，默认参数scale的值为1.0。
-参数scale取值范围：(0, +&infin;)
+参数scale取值范围：(0, +infinity)
 
 [*][h3]number GetRenderTimeScale()[/h3]
 获取当前游戏渲染帧率的缩放系数。
