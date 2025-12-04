@@ -1,9 +1,10 @@
 local TimeMagic = RegisterMod("Time Magic", 1)
-TimeMagic.Version = "1.0.3"
+TimeMagic.Version = "1.0.4"
 
 TimeMagic.RenderTimeScale = 1.0
 TimeMagic.GameTimeScale = 1.0
-TimeMagic.LastTime = Isaac.GetTime()
+TimeMagic.LastRenderTime = Isaac.GetTime()
+TimeMagic.LastGameTime = Isaac.GetTime()
 TimeMagic.LastRenderFrame = Isaac.GetFrameCount()
 TimeMagic.LastGameFrame = Game():GetFrameCount()
 TimeMagic.RenderTimesPerSecond = 60
@@ -16,22 +17,26 @@ TimeMagic.Period = TimeMagic.Period & 1 > 0 and TimeMagic.Period + 1 or TimeMagi
 TimeMagic:AddCallback(ModCallbacks.MC_POST_RENDER, function(self)
     self.Counter = self.Counter + 1
     
-    local currentTime = Isaac.GetTime()
-    local deltaTime = currentTime - self.LastTime
-    self.LastTime = currentTime
-    
     if self.Counter % self.RenderPeriod == 0 then
+        local currentRenderTime = Isaac.GetTime()
+        local deltaRenderTime = currentRenderTime - self.LastRenderTime
+        self.LastRenderTime = currentRenderTime
+
         local currentRenderFrame = Isaac.GetFrameCount()
         local deltaRenderFrames = currentRenderFrame - self.LastRenderFrame
         self.LastRenderFrame = currentRenderFrame
-        self.RenderTimeScale = 1e3 * deltaRenderFrames / deltaTime / self.RenderTimesPerSecond
+        self.RenderTimeScale = 1e3 * deltaRenderFrames / deltaRenderTime / self.RenderTimesPerSecond
     end
     
     if self.Counter % self.GamePeriod == 0 then
+        local currentGameTime = Isaac.GetTime()
+        local deltaGameTime = currentGameTime - self.LastGameTime
+        self.LastGameTime = currentGameTime
+
         local currentGameFrame = Game():GetFrameCount()
         local deltaGameFrames = currentGameFrame - self.LastGameFrame
         self.LastGameFrame = currentGameFrame
-        self.GameTimeScale = 1e3 * deltaGameFrames / deltaTime / self.GameTimesPerSecond
+        self.GameTimeScale = 1e3 * deltaGameFrames / deltaGameTime / self.GameTimesPerSecond
     end
     
     if self.Counter >= self.Period then
