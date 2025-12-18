@@ -1,5 +1,10 @@
 local TimeMagic = RegisterMod("Time Magic", 1)
-TimeMagic.Version = "1.0.5"
+TimeMagic.Version = "1.1.0"
+
+TimeMagic.GetRenderPos = function()
+    return Vector(Isaac.GetScreenWidth()/2, 20)
+end
+TimeMagic.RenderSize = 0.5
 
 TimeMagic.RenderTimeScale = 1.0
 TimeMagic.GameTimeScale = 1.0
@@ -95,6 +100,55 @@ end)
 
 TimeMagic:AddCallback(ModCallbacks.MC_POST_RENDER, function(self)
     self:SpeedDown()
+end)
+-----------------------------------------------------------------------------
+local KeysTriggered = {
+    Minus_Triggered = false,
+    Plus_Triggered = false,
+    Backspace_Triggered = false
+}
+local function IsKeyTriggered(key)
+    for i=1, Game():GetNumPlayers()do
+        local player = Game():GetPlayer(i-1)
+        if Input.IsButtonTriggered(key, player.ControllerIndex) then
+            return true
+        end
+    end
+    return false
+end
+TimeMagic:AddCallback(ModCallbacks.MC_POST_RENDER, function(self)
+    local Kp = KeysTriggered
+    for k,v in pairs{Minus_Triggered = Keyboard.KEY_MINUS, Plus_Triggered = Keyboard.KEY_EQUAL, Backspace_Triggered = Keyboard.KEY_BACKSPACE}do
+        Kp[k] = IsKeyTriggered(v)
+    end
+    if Kp.Backspace_Triggered then
+        self.TargetTimeScale = 1.0
+    elseif not (Kp.Minus_Triggered and Kp.Plus_Triggered) then
+        if Kp.Minus_Triggered then
+            self.TargetTimeScale = math.max(0.05, self.TargetTimeScale - 0.05)
+        elseif Kp.Plus_Triggered then
+            self.TargetTimeScale = self.TargetTimeScale + 0.1
+        end
+    end
+    if self.TargetTimeScale ~= 1.0 then
+        local SetText
+        local SetColor
+        if Game():IsPaused() then
+            SetText = 'Paused'
+            SetColor = {r=1, g=0, b=0, a=1}
+        else
+            SetText = string.format('Time Scale: %.2fx', self.TargetTimeScale)
+            if self.TargetTimeScale < 1.0 then
+                SetColor = {r=1, g=1, b=0, a=1}
+            else
+                SetColor = {r=0, g=1, b=1, a=1}
+            end
+        end
+        local SetTextWidth = Isaac.GetTextWidth(SetText)
+        local pos = self.GetRenderPos()
+        local size = self.RenderSize
+        Isaac.RenderScaledText(SetText, pos.X - (SetTextWidth * size) / 2, pos.Y, size, size, SetColor.r, SetColor.g, SetColor.b, SetColor.a)
+    end
 end)
 
 -----------------------------------------------------------------------------

@@ -6,6 +6,10 @@
     <description>
 [h1]TimeScaler - 变速精灵[/h1]
 
+[h2]按下“+”键加快游戏速度；按下“-”键减慢游戏速度；按下“Backspace”键重置[/h2]
+模组实时监测游戏帧率，实际效果可能与预期效果略有偏差。
+游戏暂停时不生效。
+
 [h2]模组接口[/h2]
 [u]调用方式：TimeScaler[b]:[/b]函数名(参数)[/u]
 [olist]
@@ -26,7 +30,7 @@
 [*]模组基于实时计算的缩放系数进行游戏变速操作，实际效果可能与预期效果存在偏差。
 [/list]
 	</description>
-    <version>1.0.5</version>
+    <version>1.1.0</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
 </metadata>
